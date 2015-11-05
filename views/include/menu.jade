@@ -12,11 +12,11 @@
     .col-md-4.text-center
         img(src='/images/bottle.png')
         a(href='#',onclick='throwBottle()') 扔一个
-            span#throwTimes.badge #{6}
+            span#throwTimes.badge #{6 - user.throwTimes}
     .col-md-4.text-center
         img(src='/images/net.png')
         a(href='#',onclick='pick()') 捞一个
-            span#pickTimes.badge #{3}
+            span#pickTimes.badge #{3 - user.pickTimes}
     .col-md-4.text-center
         img(src='/images/my.png')
         a(href='#',onclick='myBottle()') 我的瓶子

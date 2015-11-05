@@ -16,6 +16,9 @@
     "express-session": "~1.12.1",
     "connect-mongo": "~0.8.2",
     "uuid": "~2.0.1",
-    "formidable": "~1.0.17"
+    "formidable": "~1.0.17",
+    "redis": "~2.3.0",
+    "async": "~1.5.0",
+    "generic-pool": "~2.2.1"
   }
 }
