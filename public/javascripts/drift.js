@@ -145,3 +145,28 @@ function response(){
         });
     }
 }
+
+
+function myBottle(){
+    $.ajax({
+        url:"/bottle/myBottle",
+        type:"POST",
+        dataType:'json'
+    }).done(function(ret){
+        if(ret['code']==1){
+            var bottles = ret['msg'];
+            $('#myBottleRows').empty();
+            for(var i=0;i<bottles.length;i++){
+                $('#myBottleRows').append(
+                    $('<div class="col-sm-12"><a href="#" onclick="viewBottle(&quot;'+bottles[i]._id+'&quot;)"'+'>'
+                    +(bottles[i].message[0].user+":"+bottles[i].message[0].content)
+                    +'</a></div>')
+                );
+            }
+            $('#myBottleModal').modal('show');
+        }else{
+            $('#msg').text(ret['msg']);
+            $('#msgModal').modal();
+        }
+    });
+}

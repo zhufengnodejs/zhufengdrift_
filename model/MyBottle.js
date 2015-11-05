@@ -25,4 +25,14 @@ Bottle.prototype.response = function(callback){
             callback(null,bottle);
     });
 }
+
+Bottle.myBottle = function(owner,callback){
+    bottleModel.find({user:owner},function(err,bottles){
+        if(err)
+            callback(err);
+        else
+            callback(null,bottles);
+    });
+}
+
 module.exports =Bottle;
