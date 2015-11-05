@@ -33,6 +33,35 @@ module.exports.getTimes = function(owner,callback){
     })
 }
 
+module.exports.pick = function(username,callback){
+    pool.acquire(function(err,client){
+        client.SELECT(2,function(){
+            client.GET(username,function(err,result){
+                if(result && result>=3){
+                    return callback({code:0,msg:"今天扔瓶子的机会已经用完啦"});
+                }else{
+                    client.INCR(username,function(){
+                        client.SELECT(0,function(){
+                            client.RANDOMKEY(function(err,bottleId){
+                                if(!bottleId){
+                                    return callback({code:0,msg:"大海空空如也"});
+                                }
+                                client.HGETALL(bottleId,function(err,bottle){
+                                    client.DEL(bottleId,function(){
+                                        pool.release(client);
+                                        return callback({code:1,msg:bottle});
+                                    })
+                                });
+                            });
+                        })
+                    })
+
+                }
+            })
+        });
+    });
+}
+
 
 module.exports.throw = function(bottle,callback){
     var bottleId = uuid.v4();

@@ -27,4 +27,11 @@ router.post('/throw', function(req, res, next) {
         return res.json(result);
     });
 });
+
+router.post('/pick', function(req, res, next) {
+        Bottle.pick(req.session.user.username,function(result){
+            return res.json(result);
+        });
+});
+
 module.exports = router;
