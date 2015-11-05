@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Bottle = require('../model/Bottle');
+var MyBottle = require('../model/MyBottle');
 var util = require('util');
 
 router.post('/throw', function(req, res, next) {
@@ -33,5 +34,40 @@ router.post('/pick', function(req, res, next) {
             return res.json(result);
         });
 });
+
+
+
+router.post('/response',function(req,res,next){
+    var bottle = {user:[],message:[]};
+    bottle.user.push(req.session.user.username);
+    bottle.user.push(req.body.owner);
+    if(req.body.content){
+        bottle.message.push({
+            user:req.body.owner,
+            content:req.body.content,
+            time:req.body.time
+        });
+    }else{
+        return res.json({code:0,msg:"内容不能为空!"});
+    }
+    if(req.body.response){
+        bottle.message.push({
+            user:req.session.user.username,
+            content:req.body.response,
+            time:Date.now()
+        });
+    }else{
+        return res.json({code:0,msg:"内容不能为空!"});
+    }
+    var newMyBottle = new MyBottle(bottle);
+    newMyBottle.response(function(err,result){
+        if(err){
+            return res.json({code:0,msg:"回应出错!"});
+        }else{
+            return res.json({code:1,msg:bottle});
+        }
+    });
+})
+
 
 module.exports = router;

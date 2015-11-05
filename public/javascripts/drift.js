@@ -121,3 +121,27 @@ function throwback(){
         });
     }
 }
+
+
+function response(){
+    var owner = $('#owner').val();
+    var time = $('#time').val();
+    var response = $('#response').val();
+    var bottle_content = $('#bottle_content').val();
+    if(bottle_content){
+        $.ajax({
+            url:"/bottle/response",
+            type:"POST",
+            data:{response:response,content:bottle_content,owner:owner,time:time},
+            dataType:'json'
+        }).done(function(ret){
+            if(ret['code']==1){
+                $('#pickModal').modal('hide');
+                $('#msg').text('回应成功,瓶子已经收藏到了我的瓶子里了。');
+                $('#msgModal').modal();
+            }else{
+                alert(ret['msg']);
+            }
+        });
+    }
+}
