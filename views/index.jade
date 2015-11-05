@@ -2,20 +2,8 @@ extends layout
 
 block content
   div.container(style="background-image:url(/images/background.png);width:1360px;height:729px;position:relative;")
-    .row(style="position:absolute;left:0;top:5;width:1360px")
-      .col-md-offset-8.col-md-4.text-right
-        a(href='#',onclick='reg()',style="text-decoration:none;") 注册用户
-    .row(style="position:absolute;left:0;bottom:0;width:1360px")
-      .col-md-4.text-center
-        img(src='/images/bottle.png')
-        a(href='#',onclick='throwBottle()') 扔一个
-          span#throwTimes.badge #{6}
-      .col-md-4.text-center
-        img(src='/images/net.png')
-        a(href='#',onclick='pick()') 捞一个
-          span#pickTimes.badge #{3}
-      .col-md-4.text-center
-        img(src='/images/my.png')
-        a(href='#',onclick='myBottle()') 我的瓶子
+    include include/menu
+    include include/msg
+    include include/reg
 
 
