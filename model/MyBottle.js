@@ -35,4 +35,13 @@ Bottle.myBottle = function(owner,callback){
     });
 }
 
+Bottle.show = function(bottleId,callback){
+    bottleModel.findOne({_id:bottleId},function(err,bottle){
+        if(err)
+            callback(err);
+        else
+            callback(null,bottle);
+    });
+}
+
 module.exports =Bottle;

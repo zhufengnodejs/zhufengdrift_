@@ -170,3 +170,31 @@ function myBottle(){
         }
     });
 }
+
+
+
+function viewBottle(bottleId){
+    $.ajax({
+        url:"/bottle/pick",
+        type:"POST",
+        data:{bottleId:bottleId},
+        dataType:'json'
+    }).done(function(ret){
+        if(ret['code']==1){
+            var bottle = ret['msg'];
+            $('#viewBottleRows').empty();
+            for(var i=0;i<bottle.message.length;i++){
+                $('#viewBottleRows').append(
+                    $('<div class="col-sm-12">'
+                    +(bottle.message[i].user+":"+bottle.message[i].content)
+                    +'</div>')
+                );
+            }
+            $('#myBottleModal').modal('hide');
+            $('#viewBottleModal').modal('show');
+        }else{
+            $('#msg').text(ret['msg']);
+            $('#msgModal').modal();
+        }
+    });
+}

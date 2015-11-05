@@ -30,9 +30,19 @@ router.post('/throw', function(req, res, next) {
 });
 
 router.post('/pick', function(req, res, next) {
+    if(req.body.bottleId){
+        MyBottle.show(req.body.bottleId,function(err,bottle){
+            if(err){
+                return res.json({code:0,msg:"查看瓶子出错!"});
+            }else{
+                return res.json({code:1,msg:bottle});
+            }
+        });
+    }else{
         Bottle.pick(req.session.user.username,function(result){
             return res.json(result);
         });
+    }
 });
 
 
